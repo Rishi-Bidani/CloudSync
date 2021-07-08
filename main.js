@@ -13,11 +13,11 @@ watcher
     .on("add", function (DocPath) {
         console.log("File", DocPath, "has been added");
     })
-    .on("change", function (path) {
-        console.log("File", path, "has been changed");
+    .on("change", function (DocPath) {
+        console.log("File", DocPath, "has been changed");
     })
-    .on("unlink", function (path) {
-        console.log("File", path, "has been removed");
+    .on("unlink", function (DocPath) {
+        console.log("File", DocPath, "has been removed");
     })
     .on("error", function (error) {
         console.error("Error happened", error);
