@@ -4,12 +4,15 @@ const FormData = require("form-data");
 const path = require("path");
 const files = require("./fsWrap");
 
+const stream = (filepath) => {
+    new Promise((resolve, reject) => {
+        resolve(filepath);
+    });
+};
+
 class Upload {
     static async createFormData(filepath) {
         let form = new FormData();
-        const stream = new Promise((resolve, reject) => {
-            resolve(filepath);
-        });
         form.append(path.basename(filepath), await stream);
         return form;
     }
