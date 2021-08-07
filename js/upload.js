@@ -18,7 +18,7 @@ class Upload {
     }
     static async uploadfile(formData) {
         axios
-            .post("url", formData, {
+            .post("http://localhost:5000/posts/data", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -28,7 +28,7 @@ class Upload {
             })
             .catch((err) => {
                 console.log(err);
-                files.errorWrite("Could not Upload!!}" + filepath + "\n");
+                files.errorWrite("Could not Upload!!");
             });
     }
 }
