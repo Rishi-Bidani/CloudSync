@@ -20,7 +20,7 @@ function main() {
             if (await files.findFileExists(DocPath)) {
                 const form = await upload.createFormData(DocPath);
                 await upload.uploadfile(form);
-                console.log(form);
+                // console.log(form);
             } else {
                 console.log("error");
             }

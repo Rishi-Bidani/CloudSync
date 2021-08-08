@@ -11,7 +11,7 @@ class FSWrapper {
         }
     }
     static async errorWrite(message) {
-        await fs.promises.appendFile(path.resolve("../ignored", "err.txt"), message);
+        await fs.promises.appendFile(path.resolve("ignored", "err.txt"), message);
         return;
     }
 }

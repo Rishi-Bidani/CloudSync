@@ -5,22 +5,24 @@ const path = require("path");
 const files = require("./fsWrap");
 
 const stream = (filepath) => {
-    new Promise((resolve, reject) => {
-        resolve(filepath);
+    return new Promise((resolve, reject) => {
+        resolve(fs.createReadStream(filepath));
     });
 };
 
 class Upload {
     static async createFormData(filepath) {
         let form = new FormData();
-        form.append(path.basename(filepath), await stream);
+        form.append(path.basename(filepath), await stream(filepath));
         return form;
     }
     static async uploadfile(formData) {
+        console.log(formData);
+        const formHeaders = formData.getHeaders();
         axios
             .post("http://localhost:5000/posts/data", formData, {
                 headers: {
-                    "Content-Type": "multipart/form-data",
+                    ...formHeaders,
                 },
             })
             .then(() => {
