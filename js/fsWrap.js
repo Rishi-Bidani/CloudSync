@@ -14,6 +14,13 @@ class FSWrapper {
         await fs.promises.appendFile(path.resolve("ignored", "err.txt"), message);
         return;
     }
+    static async fileSize(filepath) {
+        const MB = 1024 ** 2;
+        const fileStat = await fs.promises.stat(filepath);
+        const sizeToReturn =
+            fileStat.size / MB > 1 ? fileStat.size / MB + "-mb" : fileStat.size + "-kb";
+        return sizeToReturn;
+    }
 }
 
 module.exports = FSWrapper;
