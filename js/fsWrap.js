@@ -1,5 +1,12 @@
-const fs = require("fs");
+const fs = require("fs-extra");
 const path = require("path");
+
+const HomeDir =
+    process.env.APPDATA ||
+    (process.platform == "darwin"
+        ? process.env.HOME + "/Library/Preferences"
+        : process.env.HOME + "/.local/share");
+const ERROR_FILE = path.join(HomeDir, "CloudSync", "err.txt");
 
 class FSWrapper {
     static async findFileExists(filePath) {
@@ -11,8 +18,15 @@ class FSWrapper {
         }
     }
     static async errorWrite(message) {
-        await fs.promises.appendFile(path.resolve("ignored", "err.txt"), message);
-        return;
+        try {
+            await fs.ensureFile(ERROR_FILE);
+            const logStream = fs.createWriteStream(ERROR_FILE, { flags: "a" });
+            logStream.write(`${new Date().toString()} ${message}\n`);
+            logStream.end("");
+        } catch (error) {
+            logStream.write(`${new Date().toString()} + ${error}\n`);
+            logStream.end("");
+        }
     }
     static async fileSize(filepath) {
         const MB = 1024 ** 2;
