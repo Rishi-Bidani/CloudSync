@@ -16,22 +16,22 @@ class Upload {
         form.append(path.basename(filepath), await stream(filepath));
         return form;
     }
-    static async uploadfile(formData) {
-        console.log(formData);
+    static async uploadfile(formData, filePath) {
+        // console.log(formData);
         const formHeaders = formData.getHeaders();
-        axios
-            .post("http://localhost:5000/posts/data", formData, {
+        const url = "http://localhost:5000/posts/data";
+        try {
+            const response = await axios.post(url, formData, {
                 headers: {
                     ...formHeaders,
                 },
-            })
-            .then(() => {
-                console.log("uploaded!");
-            })
-            .catch((err) => {
-                console.log(err);
-                files.errorWrite("Could not Upload!!");
             });
+            console.log(response);
+            console.log("Uploaded!");
+        } catch (error) {
+            console.log(error);
+            files.errorWrite("Could Not Upload!");
+        }
     }
 }
 

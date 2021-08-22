@@ -23,7 +23,7 @@ function main() {
         .on("change", async (DocPath) => {
             if (await files.findFileExists(DocPath)) {
                 const form = await upload.createFormData(DocPath);
-                await upload.uploadfile(form);
+                await upload.uploadfile(form, DocPath.split(__dirname)[1]);
                 // console.log(form);
             } else {
                 console.log("error");
