@@ -6,6 +6,7 @@ const cors = require("cors");
 
 // MiddleWare
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Any posts requests will be handled by the following file

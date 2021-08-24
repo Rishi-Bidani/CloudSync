@@ -17,20 +17,18 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).any();
 
 router.post("/data", (req, res) => {
-    console.log(req.body);
-    console.log(req.files);
+    // The following is the middleware for formdata content
     upload(req, res, (err) => {
         if (err) {
             res.redirect(req.headers.referer + "/error.html");
-            return;
         }
-
         if (!req.files) {
             res.redirect(req.headers.referer + "/error.html");
-            return;
         } else {
-            //Implement your own logic if needed. Like moving the file, renaming the file, etc.
-            res.redirect(req.headers.referer);
+            // All req content is valid here => Perform all file based logic here
+            console.log(req.body);
+            console.log(req.files);
+            res.json("Received File");
         }
     });
     // res.status(201).end("Uploaded");
