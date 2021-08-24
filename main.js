@@ -18,12 +18,16 @@ function main() {
             const size = await FSWrapper.fileSize(DocPath);
             if (parseInt(size.split("-")[0]) >= 1) {
                 console.log("File", DocPath, "has been added");
+                if (await files.findFileExists(DocPath)) {
+                    const form = await upload.createFormData(DocPath, DocPath.split(__dirname)[1]);
+                    await upload.uploadfile(form);
+                }
             }
         })
         .on("change", async (DocPath) => {
             if (await files.findFileExists(DocPath)) {
-                const form = await upload.createFormData(DocPath);
-                await upload.uploadfile(form, DocPath.split(__dirname)[1]);
+                const form = await upload.createFormData(DocPath, DocPath.split(__dirname)[1]);
+                await upload.uploadfile(form);
                 // console.log(form);
             } else {
                 console.log("error");

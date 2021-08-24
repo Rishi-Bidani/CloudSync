@@ -11,12 +11,13 @@ const stream = (filepath) => {
 };
 
 class Upload {
-    static async createFormData(filepath) {
+    static async createFormData(filepath, relPath) {
         let form = new FormData();
         form.append(path.basename(filepath), await stream(filepath));
+        form.append("relpath", relPath);
         return form;
     }
-    static async uploadfile(formData, filePath) {
+    static async uploadfile(formData) {
         // console.log(formData);
         const formHeaders = formData.getHeaders();
         const url = "http://localhost:5000/posts/data";
@@ -26,7 +27,7 @@ class Upload {
                     ...formHeaders,
                 },
             });
-            console.log(response);
+            // console.log(response);
             console.log("Uploaded!");
         } catch (error) {
             console.log(error);
