@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Any posts requests will be handled by the following file
-const posts = require("./routes/posts");
+const posts = require("./js/posts");
 app.use("/posts", posts);
 
 app.use(express.static(path.join(__dirname, "public")));
