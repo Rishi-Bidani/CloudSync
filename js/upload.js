@@ -22,7 +22,17 @@ class Upload {
         const formHeaders = formData.getHeaders();
         const url = "http://localhost:5000/posts/data";
         try {
-            const response = await axios.post(url, formData, {
+            // const response = await axios.post(url, formData, {
+            //     headers: {
+            //         ...formHeaders,
+            //     },
+            // });
+            const response = await axios({
+                method: "post",
+                url: url,
+                data: formData,
+                maxContentLength: Infinity,
+                maxBodyLength: Infinity,
                 headers: {
                     ...formHeaders,
                 },
