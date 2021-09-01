@@ -6,7 +6,7 @@ const upload = require("./js/upload");
 const FSWrapper = require("./js/fsWrap");
 
 const WATCHED = path.join(__dirname, "test");
-const UNWATCHED = ["./node_modules/*", "./ignored"];
+const UNWATCHED = ["./node_modules/*", "./ignored/*"];
 
 // Initialize watcher.
 const watcher = chokidar.watch(path.resolve(WATCHED), {
