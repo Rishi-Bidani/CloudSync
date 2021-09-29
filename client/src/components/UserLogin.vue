@@ -3,22 +3,36 @@
     <form>
       <ul>
         <li>
-          <h3><a href="#" style="text-decoration: none;">Login </a></h3>
+          <h3><a href="#" style="text-decoration: none">Login </a></h3>
         </li>
         <li>
-          <h3><a href="#" style="text-decoration: none;">Sign Up</a></h3>
+          <h3><a href="#" style="text-decoration: none">Sign Up</a></h3>
         </li>
       </ul>
       <div class="form-group">
-        <input type="text" placeholder="Username" name="uname" v-model="uname" required>
+        <input
+          type="text"
+          placeholder="Username"
+          name="uname"
+          v-model="uname"
+          required
+        />
       </div>
       <br />
       <div class="form-group">
-        <input type="password" placeholder="Password" name="psw" v-model="psw" required>
+        <input
+          type="password"
+          placeholder="Password"
+          name="psw"
+          v-model="psw"
+          required
+        />
       </div>
       <span class="pswd"><a href="#">Forgot your password?</a></span>
       <br />
-      <button type="submit" name="" value="Submit" v-on:click="printValues">Enter</button>
+      <button type="submit" name="" value="Submit" v-on:click="printValues">
+        Enter
+      </button>
       <br />
       <span>Or</span>
       <br />
@@ -30,18 +44,18 @@
 <script>
 export default {
   name: "UserLogin",
-  data(){
-    return{
-      uname:'',
-      psw:''
-    }
+  data() {
+    return {
+      uname: "",
+      psw: "",
+    };
   },
   methods: {
-  printValues() {
-    console.log(this.uname);
-    console.log(this.psw);
+    printValues() {
+      console.log(this.uname);
+      console.log(this.psw);
+    },
   },
-},
 };
 </script>
 
@@ -107,7 +121,7 @@ li {
 /*for forgot password feature*/
 span.pswd {
   font-size: 70%;
-  position:absolute;
+  position: absolute;
   right: 18%;
 }
 /*underline effect*/
@@ -117,13 +131,13 @@ a {
   padding: 0.2em 0;
 }
 a::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 0.1em;
-  background-color:  #2274c2;
+  background-color: #2274c2;
   opacity: 0;
   transition: opacity 300ms, transform 300ms;
 }
@@ -134,7 +148,7 @@ li a::after {
 }
 
 li a:hover::after,
-li a:focus::after{
+li a:focus::after {
   transform: scale(1);
 }
 </style>

@@ -4,6 +4,7 @@ const path = require("path");
 const multer = require("multer");
 const DATA_FOLDER = path.join(__dirname, "../..", "DATA");
 const fsw = require("./fsWrap");
+const fsWrapper = require("./fsWrap");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -36,5 +37,12 @@ router.post("/data", (req, res) => {
     });
     // res.status(201).end("Uploaded");
 });
+
+router.post("/dirs", async (req, res) => {
+    const forPath = req.body.dir;
+    console.log(forPath)
+    const filesAndFolders = await fsWrapper.filesAndFolders(forPath);
+    req.json(JSON.stringify(filesAndFolders))
+})
 
 module.exports = router;
