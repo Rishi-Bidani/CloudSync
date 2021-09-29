@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import RequestFiles from "../js/reqfiles";
-RequestFiles.getFilesandFolders(".");
 export default {
     name: "Files",
     props: {

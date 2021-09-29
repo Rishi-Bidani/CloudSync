@@ -1,5 +1,7 @@
 const fs = require("fs");
 const { stat } = require("fs/promises");
+const path = require("path");
+const DATA_FOLDER = path.join(__dirname, "../..", "DATA");
 
 class fsWrapper {
     static async move(file, destination) {
@@ -13,7 +15,9 @@ class fsWrapper {
     static async getFilesAndDirs(forPath) {
         const folders = [];
         const files = [];
-        const read = await fs.promises.readdir(forPath, {
+        const fixedpath = path.join(DATA_FOLDER, forPath);
+        console.log(fixedpath)
+        const read = await fs.promises.readdir(fixedpath, {
             withFileTypes: true,
         });
         for (const file of read) {

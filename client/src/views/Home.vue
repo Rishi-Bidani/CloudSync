@@ -2,7 +2,7 @@
     <div>
         <div class="home">
             <img alt="Vue logo" src="../assets/logo.png" />
-            <HelloWorld msg="Welcome to Your Vue.js App" />
+            <Files msg="Welcome to Your Vue.js App" />
         </div>
         <!-- <div class="login">
             <UserLogin msg="Please Login" />
@@ -12,14 +12,18 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Files from "@/components/files.vue";
 // import UserLogin from "@/components/UserLogin.vue";
+import RequestFiles from "@/js/reqfiles";
 
 export default {
     name: "Home",
     components: {
-        HelloWorld,
+        Files,
         // UserLogin,
+    },
+    async created() {
+        console.log(await RequestFiles.getFilesandFolders("test"));
     },
 };
 </script>
