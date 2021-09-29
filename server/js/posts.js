@@ -42,7 +42,7 @@ router.post("/dirs", async (req, res) => {
     const forPath = req.body.dir;
     console.log(forPath)
     const filesAndFolders = await fsWrapper.getFilesAndDirs(forPath);
-    res.json(JSON.stringify(filesAndFolders))
+    res.json(filesAndFolders)
 })
 
 module.exports = router;

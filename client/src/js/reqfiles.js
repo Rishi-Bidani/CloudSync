@@ -7,7 +7,6 @@ export default class RequestFiles {
         const data = await axios.post(`${url}/dirs`, {
             dir: forPath,
         });
-        console.log(data);
         return data;
     }
 }

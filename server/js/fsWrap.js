@@ -25,10 +25,12 @@ class fsWrapper {
                 files.push({
                     fileName: file.name,
                     fileExtension: path.extname(file.name),
-                    fileSize: Number.parseFloat(fs.statSync(path.join(forPath, file.name)).size / 1024).toFixed(3),
+                    fileSize: Number.parseFloat(fs.statSync(path.join(fixedpath, file.name)).size / 1024).toFixed(3),
                 });
             } else if (file.isDirectory()) {
                 folders.push(file.name);
+            } else {
+                console.log("NEITHER FILE NOR FOLDER")
             }
         }
         return {
