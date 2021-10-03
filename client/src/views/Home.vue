@@ -1,18 +1,17 @@
 <template>
     <div>
-        <div class="home">
-            <img alt="Vue logo" src="../assets/logo.png" />
-            <Files msg="Prop Message" :key="`DisplayFiles`" />
-        </div>
-        <!-- <div class="login">
-            <UserLogin msg="Please Login" />
-        </div> -->
+        <Files
+            msg="Prop Message"
+            :key="`DisplayFiles`"
+            nav="."
+            v-on:folderClicked="receiveFolderClick"
+        />
     </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Files from "@/components/files.vue";
+import Files from "@/components/Files.vue";
 // import UserLogin from "@/components/UserLogin.vue";
 
 export default {
@@ -20,6 +19,11 @@ export default {
     components: {
         Files,
         // UserLogin,
+    },
+    methods: {
+        receiveFolderClick(obj) {
+            console.log(obj);
+        },
     },
 };
 </script>
