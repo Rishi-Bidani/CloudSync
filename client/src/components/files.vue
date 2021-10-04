@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 <template>
     <div class="container">
         <div class="folders">
@@ -26,41 +27,24 @@
 
 <script>
 import RequestFiles from "@/js/reqfiles";
+import {ref} from "vue"
+
 export default {
     name: "Files",
     props: {
+        test: Number,
         msg: String,
         nav: String,
+        files: Array,
+        folders: Array
     },
-    data() {
-        return {
-            files: [],
-            folders: [],
-            navigationPath: ".",
-        };
-    },
-    async created() {
-        const filesAndFoldersRequest = await RequestFiles.getFilesandFolders(this.navigationPath);
-        const reqFiles = filesAndFoldersRequest.data.files;
-        const reqFolders = filesAndFoldersRequest.data.folders;
-        // console.log(reqFiles);
-        // console.log(this.nav);
-        // for (const file in reqFiles) {
-        //     console.log(file);
-        // }
-        try {
-            this.files = reqFiles;
-            this.folders = reqFolders;
-            // console.log(this.files, this.folders);
-        } catch (error) {
-            console.log(error);
-        }
-    },
+
     methods: {
-        navigation: function (clickedFolder) {
+        navigation: async function (clickedFolder) {
             // this.navigationPath += `/${clickedFolder}`;
             // console.log(this.navigationPath);
             this.$emit("folderClicked", clickedFolder);
+
         },
     },
 };
