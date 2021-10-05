@@ -1,7 +1,7 @@
 <template>
     <div>
+
         <Files
-            msg="Prop Message"
             :key="`DisplayFiles-${filesKey}`"
             :files="files"
             :folders="folders"
@@ -20,6 +20,7 @@ export default {
     name: "Home",
     components: {
         Files,
+
         // UserLogin,
     },
     data() {
@@ -28,7 +29,7 @@ export default {
             folders: [],
             navigationPath: ".",
             filesKey: 0,
-            testNum: 0
+            testNum: 0,
         };
     },
     async created() {

@@ -21,7 +21,6 @@
                 </li>
             </ul>
         </div>
-        {{ msg }}
     </div>
 </template>
 
