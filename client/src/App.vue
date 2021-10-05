@@ -1,9 +1,9 @@
 <template>
     <SideBar sbwidth="320px" sbheader="CloudSync" :menu="menu"/>
     <div id="nav">
-        <router-link to="/">Home</router-link>
-        |
-        <router-link to="/about">About</router-link>
+<!--        <router-link to="/">Home</router-link>-->
+<!--        |-->
+<!--        <router-link to="/about">About</router-link>-->
         <router-view/>
     </div>
 </template>
@@ -18,8 +18,18 @@ export default {
         return {
             menu: [
                 {
-                    title: ""
-                }
+                    type: "title",
+                    text: "File Options"
+                },
+                {
+                    type: "item",
+                    text: "File Name: "
+                },
+                {
+                    type: "item",
+                    text: "File Size: "
+                },
+                {}
             ]
         }
     }
@@ -37,11 +47,16 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    background-color: #DBD9EC;
     display: flex;
+    max-height: 100vh;
+    max-width: 100vw;
 }
 
 #nav {
     /*padding: 30px;*/
+    width: 100%;
+    height: 100vh;
 }
 
 /*#nav a {*/

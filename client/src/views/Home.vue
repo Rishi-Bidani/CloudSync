@@ -1,6 +1,5 @@
 <template>
-    <div>
-
+    <div class="container">
         <Files
             :key="`DisplayFiles-${filesKey}`"
             :files="files"
@@ -64,3 +63,8 @@ export default {
     },
 };
 </script>
+<style scoped>
+.container{
+    width: 100%;
+}
+</style>

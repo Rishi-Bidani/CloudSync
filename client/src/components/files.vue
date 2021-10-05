@@ -2,16 +2,14 @@
 <template>
     <div class="container">
         <div class="folders">
-            <h1>Folders</h1>
-            <ul>
-                <li
+            <figure class="folders-figure"
                     v-for="(folder, index) in folders"
                     :key="`Folder-${index}`"
                     v-on:click="navigation(folder)"
-                >
-                    {{ folder }}
-                </li>
-            </ul>
+            >
+                <img src="../assets/filelogos/file.svg" alt="Folder">
+                <figcaption>{{ folder }}</figcaption>
+            </figure>
         </div>
         <div class="files">
             <h1>Files</h1>
@@ -54,5 +52,12 @@ export default {
 li {
     text-align: left;
     cursor: pointer;
+}
+
+.folders {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    grid-gap: 2rem;
+    margin: 2rem;
 }
 </style>
