@@ -1,9 +1,14 @@
 <template>
     <SideBar sbwidth="320px" sbheader="CloudSync" :menu="menu"/>
     <div id="nav">
-<!--        <router-link to="/">Home</router-link>-->
-<!--        |-->
-<!--        <router-link to="/about">About</router-link>-->
+        <div class="center margin1">
+            <div class="breadcrumb-nav">
+                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            </div>
+        </div>
+        <!--        <router-link to="/">Home</router-link>-->
+        <!--        |-->
+        <!--        <router-link to="/about">About</router-link>-->
         <router-view/>
     </div>
 </template>
@@ -57,6 +62,28 @@ export default {
     /*padding: 30px;*/
     width: 100%;
     height: 100vh;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.margin1 {
+    margin: 1rem;
+}
+
+.breadcrumb-nav {
+    width: 70vw;
+    height: 3rem;
+    background-color: white;
+    overflow: scroll hidden;
+    scrollbar-width: thin;
+}
+
+.breadcrumb-nav::-webkit-scrollbar-track {
+    width: 10px;
+    color: blue;
 }
 
 /*#nav a {*/

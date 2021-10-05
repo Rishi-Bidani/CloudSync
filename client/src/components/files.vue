@@ -7,7 +7,7 @@
                     :key="`Folder-${index}`"
                     v-on:click="navigation(folder)"
             >
-                <img src="../assets/filelogos/file.svg" alt="Folder">
+                <img src="../assets/folder.svg" alt="Folder">
                 <figcaption>{{ folder }}</figcaption>
             </figure>
         </div>
@@ -52,6 +52,10 @@ export default {
 li {
     text-align: left;
     cursor: pointer;
+}
+
+img{
+    width: 6rem;
 }
 
 .folders {
