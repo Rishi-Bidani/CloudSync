@@ -3,7 +3,6 @@
     <div id="nav">
         <div class="center margin1">
             <div class="breadcrumb-nav">
-                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
             </div>
         </div>
         <!--        <router-link to="/">Home</router-link>-->
@@ -56,12 +55,14 @@ export default {
     display: flex;
     max-height: 100vh;
     max-width: 100vw;
+    overflow-y: hidden;
 }
 
 #nav {
     /*padding: 30px;*/
     width: 100%;
     height: 100vh;
+    overflow-y: scroll;
 }
 
 .center {
@@ -75,10 +76,13 @@ export default {
 
 .breadcrumb-nav {
     width: 70vw;
-    height: 3rem;
+    min-height: 3rem;
+    height: fit-content;
     background-color: white;
-    overflow: scroll hidden;
-    scrollbar-width: thin;
+    overflow: hidden;
+    word-wrap: break-word;
+    text-align: left;
+    border-radius: 0.5rem;
 }
 
 .breadcrumb-nav::-webkit-scrollbar-track {
