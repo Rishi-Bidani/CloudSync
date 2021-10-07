@@ -1,5 +1,11 @@
 <template>
     <div class="container">
+        <div class="center margin1">
+            <div class="breadcrumb-nav"
+                 ref="breadcrumbNav"
+            >
+            </div>
+        </div>
         <Files
             :key="`DisplayFiles-${filesKey}`"
             :files="files"
@@ -40,6 +46,7 @@ export default {
         // for (const file in reqFiles) {
         //     console.log(file);
         // }
+        this.$refs.breadcrumbNav.append(this.breadcrumbNavItem("root"))
         try {
             this.files = reqFiles;
             this.folders = reqFolders;
@@ -57,14 +64,62 @@ export default {
             const reqFolders = filesAndFoldersRequest.data.folders;
             this.files = reqFiles;
             this.folders = reqFolders;
+            this.$refs.breadcrumbNav.append(this.breadcrumbNavItem(`/${folderPath}`));
             console.log(reqFiles);
             console.log(reqFolders);
         },
+        breadcrumbNavItem(path){
+            return Object.assign(
+                document.createElement("span"),
+                {
+                    className: "breadcrumb-item",
+                    textContent: path
+                }
+            )
+        }
     },
 };
 </script>
 <style scoped>
-.container{
+.container {
     width: 100%;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.margin1 {
+    margin: 1rem;
+}
+
+.breadcrumb-nav {
+    width: 70vw;
+    min-height: 3rem;
+    height: fit-content;
+    background-color: white;
+    word-break:break-all;
+    text-align: left;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.breadcrumb-nav::-webkit-scrollbar-track {
+    width: 10px;
+    color: blue;
+}
+</style>
+<!--Unscoped-->
+<style>
+.breadcrumb-item{
+    cursor: pointer;
+}
+.breadcrumb-item:hover{
+    color: blue;
 }
 </style>

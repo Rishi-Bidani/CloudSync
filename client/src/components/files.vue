@@ -12,12 +12,30 @@
             </figure>
         </div>
         <div class="files">
-            <h1>Files</h1>
-            <ul>
-                <li v-for="(file, index) in files" :key="`Files-${index}`">
-                    {{ file.fileName }}
-                </li>
-            </ul>
+            <figure class="files-figure"
+                    v-for="(file, index) in files"
+                    :key="`Files-${index}`"
+            >
+                <img
+                    class="fileIcon"
+                    v-if="file.fileExtension === '.txt'"
+                    src="../assets/filelogos/file.svg"
+                >
+                <img
+                    class="fileIcon"
+                    v-else-if="['.mp4', '.mov', '.mkv', '.webm'].includes(file.fileExtension)"
+                    src="../assets/filelogos/video.svg"
+                />
+                <img
+                    class="fileIcon"
+                    v-else-if="['.png', '.jpeg', '.jpg', '.svg', '.gif'].includes(file.fileExtension)"
+                    src="../assets/filelogos/image2.svg"
+                />
+                <img class="fileIcon"
+                     v-else src="../assets/filelogos/file.svg"
+                />
+                <figcaption>{{ file.fileName }}</figcaption>
+            </figure>
         </div>
     </div>
 </template>
@@ -54,14 +72,22 @@ li {
     cursor: pointer;
 }
 
-img{
+img {
     width: 6rem;
 }
 
-.folders {
+img.fileIcon {
+    height: 4rem;
+}
+
+.folders, .files {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
     grid-gap: 2rem;
     margin: 2rem;
+}
+
+figcaption {
+    word-wrap: break-word
 }
 </style>
