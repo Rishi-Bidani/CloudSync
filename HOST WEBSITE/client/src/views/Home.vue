@@ -35,6 +35,7 @@ export default {
             navigationPath: ".",
             filesKey: 0,
             testNum: 0,
+            navId: 0
         };
     },
     async created() {
@@ -69,13 +70,17 @@ export default {
             console.log(reqFolders);
         },
         breadcrumbNavItem(path){
-            return Object.assign(
+            const span =  Object.assign(
                 document.createElement("span"),
                 {
                     className: "breadcrumb-item",
                     textContent: path
                 }
             )
+            span.setAttribute("data-nav-id", this.navId)
+            console.log(span)
+            this.navId++;
+            return span
         }
     },
 };

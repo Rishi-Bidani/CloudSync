@@ -17,7 +17,7 @@ class fsWrapper {
         const files = [];
         const fixedpath = path.join(DATA_FOLDER, forPath);
         console.log(fixedpath)
-        const read = await fsn.promises.readdir(fixedpath, {
+        const read = await fsn.readdir(fixedpath, {
             withFileTypes: true,
         });
         for (const file of read) {
@@ -25,7 +25,7 @@ class fsWrapper {
                 files.push({
                     fileName: file.name,
                     fileExtension: path.extname(file.name),
-                    fileSize: Number.parseFloat(parseFloat(fsn.statSync(path.join(fixedpath, file.name)).size / 1024).toFixed(3),
+                    fileSize: Number.parseFloat(fs.statSync(path.join(fixedpath, file.name)).size / 1024).toFixed(3),
                 });
             } else if (file.isDirectory()) {
                 folders.push(file.name);
