@@ -77,14 +77,15 @@ export default {
                     textContent: path
                 }
             )
-            span.setAttribute("data-nav-id", this.navId)
-            span.onclick = ()=>this.breadcrumbClick(this.navId)
+            const currNavId = this.navId;
+            span.setAttribute("data-nav-id", currNavId)
+            span.onclick = ()=>this.breadcrumbClick(currNavId)
             console.log(span)
             this.navId++;
             return span
         },
         breadcrumbClick(navid){
-            console.log("navid")
+            console.log(navid)
         }
     },
 };
