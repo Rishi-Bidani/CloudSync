@@ -26,6 +26,7 @@ func userInput(text string) string {
 
 type Settings struct {
 	WatchFolder string
+	Ignore      []string
 	Token       string
 }
 
@@ -38,14 +39,12 @@ func main() {
 	watchfolder := userInput("Enter Path of the folder you wish to watch: ")
 	password, _ := HashPassword(userInput("Enter a password"))
 
-	fmt.Println(cloudsyncPath, watchfolder, password)
-
 	settings := Settings{
-		WatchFolder: watchfolder,
+		WatchFolder: string(filepath.Join(watchfolder)),
+		Ignore:      []string{filepath.Join(watchfolder, "ignore", "*"), ""},
 		Token:       password,
 	}
 	file, _ := json.MarshalIndent(settings, "", "")
-	fmt.Println(string(file))
 	_ = ioutil.WriteFile(cloudsyncPath, file, 0644)
 
 }

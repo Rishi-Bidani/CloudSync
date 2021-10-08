@@ -7,26 +7,7 @@ const HomeDir =
         ? process.env.HOME + "/Library/Preferences"
         : process.env.HOME + "/.local/share");
 const ERROR_FILE = path.join(HomeDir, "CloudSync", "err.txt");
-const SETTINGS_FILE = path.join(HomeDir, "CloudSync", "settings.json");
-
-// Create settings.json if it doesn't exist
-async function createSettingsJson() {
-    const settings = {
-        watchFolder: "",
-        ignoreFiles: ["", ""],
-        token: "",
-    }
-    try {
-        await fs.ensureFile(SETTINGS_FILE)
-        await fs.writeJSON(SETTINGS_FILE, settings, {
-            spaces: "\t",
-            EOL: "\n"
-        })
-    } catch (error) {
-        console.log(error)
-    }
-}
-createSettingsJson()
+const SETTINGS_FILE_PATH = path.join(HomeDir, "CloudSync", "settings.json");
 
 class FSWrapper {
     static async findFileExists(filePath) {
@@ -57,4 +38,7 @@ class FSWrapper {
     }
 }
 
-module.exports = FSWrapper;
+module.exports = {
+    fsw: FSWrapper,
+    SETTINGS_FILE_PATH
+};
