@@ -15,7 +15,7 @@
             <figure class="files-figure"
                     v-for="(file, index) in files"
                     :key="`Files-${index}`"
-                    @click="this.$emit('single-click-file', file.fileName, file.fileSize)"
+                    @click="clickedFile(file.fileName, file.fileSize, index)"
             >
                 <img
                     class="fileIcon"
@@ -66,6 +66,12 @@ export default {
             this.$emit("folderClicked", clickedFolder);
 
         },
+        clickedFile(fileName, fileSize, index){
+            const files = [...document.querySelectorAll(".files-figure")]
+            files.map(elem=>elem.classList.remove("active"));
+            files[index].classList.add("active")
+            this.$emit('single-click-file', fileName, fileSize)
+        }
     },
 };
 </script>
@@ -80,6 +86,11 @@ export default {
 
 .container::-webkit-scrollbar {
     display: none;
+}
+.active{
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: lightsteelblue;
 }
 
 li {
