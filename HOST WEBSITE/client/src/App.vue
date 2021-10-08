@@ -1,5 +1,4 @@
 <template>
-    <SideBar sbwidth="320px" sbheader="CloudSync" :menu="menu"/>
     <div id="nav">
         <!--        <router-link to="/">Home</router-link>-->
         <!--        |-->
@@ -8,31 +7,7 @@
     </div>
 </template>
 <script>
-import SideBar from "@/components/SideBar"
-
 export default {
-    components: {
-        SideBar
-    },
-    data() {
-        return {
-            menu: [
-                {
-                    type: "title",
-                    text: "File Options"
-                },
-                {
-                    type: "item",
-                    text: "File Name: "
-                },
-                {
-                    type: "item",
-                    text: "File Size: "
-                },
-                {}
-            ]
-        }
-    }
 }
 
 </script>
@@ -55,8 +30,10 @@ export default {
 }
 
 #nav {
+    max-width: 100vw;
     width: 100%;
     height: 100vh;
-    overflow-y: scroll;
+    /*overflow: hidden scroll;*/
+    display: flex;
 }
 </style>

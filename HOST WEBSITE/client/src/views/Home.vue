@@ -1,4 +1,7 @@
 <template>
+    <section class="section-1">
+        <SideBar sbwidth="320px" sbheader="CloudSync" :menu="menu"/>
+    </section>
     <div class="container">
         <div class="center margin1">
             <div class="breadcrumb-nav"
@@ -24,6 +27,7 @@
             :files="files"
             :folders="folders"
             v-on:folderClicked="receiveFolderClick"
+            v-on:single-click-file="singleClickFile"
         />
     </div>
 </template>
@@ -32,11 +36,13 @@
 // @ is an alias to /src
 import Files from "@/components/Files.vue";
 import RequestFiles from "@/js/reqfiles";
+import SideBar from "@/components/SideBar"
 
 export default {
     name: "Home",
     components: {
-        Files
+        Files,
+        SideBar
     },
     data() {
         return {
@@ -45,7 +51,24 @@ export default {
             navigationPath: ".",
             filesKey: 0,
             testNum: 0,
-            navId: 0
+            navId: 0,
+            menu: [
+                {
+                    type: "title",
+                    text: "File Options"
+                },
+                {
+                    id: "filename",
+                    type: "item",
+                    text: "File Name: "
+                },
+                {
+                    id: "filesize",
+                    type: "item",
+                    text: "File Size: "
+                },
+                {}
+            ]
         };
     },
     async created() {
@@ -76,8 +99,18 @@ export default {
         },
         async navClicked(navid) {
             console.log(navid)
-            this.navigationPath = this.navigationPath.split("/").slice(0, navid+1).join("/")
+            this.navigationPath = this.navigationPath.split("/").slice(0, navid + 1).join("/")
             await this.displayFolders()
+        },
+        singleClickFile(fileName, fileSize) {
+            console.log(fileName, fileSize)
+            this.menu[1].text = "File Name: " + fileName
+            if (fileSize < 1) {
+                fileSize = fileSize * 1024 + "KB"
+            } else {
+                fileSize = fileSize + "MB"
+            }
+            this.menu[2].text = "File Size: " + fileSize
         }
     },
 };
@@ -85,6 +118,11 @@ export default {
 <style scoped>
 .container {
     width: 100%;
+    overflow-y: scroll;
+}
+
+.section-1 {
+    position: relative;
 }
 
 .center {
@@ -97,7 +135,7 @@ export default {
 }
 
 .breadcrumb-nav {
-    width: 70vw;
+    width: 80%;
     min-height: 3rem;
     height: fit-content;
     background-color: white;

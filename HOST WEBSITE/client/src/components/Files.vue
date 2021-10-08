@@ -15,6 +15,7 @@
             <figure class="files-figure"
                     v-for="(file, index) in files"
                     :key="`Files-${index}`"
+                    @click="this.$emit('single-click-file', file.fileName, file.fileSize)"
             >
                 <img
                     class="fileIcon"
@@ -71,6 +72,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.container {
+    overflow-y: hidden;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+}
+
 li {
     text-align: left;
     cursor: pointer;

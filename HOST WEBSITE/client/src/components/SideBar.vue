@@ -86,6 +86,9 @@ export default {
     font-size: 1.5rem;
     color: #D8D9EC;
 }
+aside{
+    width: fit-content;
+}
 
 .sidebar-item, .sidebar-title {
     font-size: 1.2rem;
@@ -111,6 +114,7 @@ export default {
     text-align: left;
     margin: 0 1rem;
     padding: 1rem 0.2rem;
+    word-wrap: break-word;
 }
 
 .sidebar-title {
