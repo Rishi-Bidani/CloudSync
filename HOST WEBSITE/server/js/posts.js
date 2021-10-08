@@ -17,7 +17,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }).any();
 
-router.post("/data", (req, res) => {
+const checkToken = (req, res, next) =>{
+    console.log(req.headers)
+    next()
+}
+
+router.post("/data", checkToken, (req, res) => {
     // The following is the middleware for formdata content
     upload(req, res, async (err) => {
         if (err) {

@@ -2,8 +2,9 @@ const axios = require("axios");
 const fs = require("fs");
 const FormData = require("form-data");
 const path = require("path");
-const files = require("./fsWrap");
+const { fsw, SETTINGS_FILE_PATH } = require("./fsWrap");;
 
+const SETTINGS_FILE = require(SETTINGS_FILE_PATH);
 const stream = (filepath) => {
     return new Promise((resolve, reject) => {
         resolve(fs.createReadStream(filepath));
@@ -30,13 +31,14 @@ class Upload {
                 maxBodyLength: Infinity,
                 headers: {
                     ...formHeaders,
+                    Authorisation: SETTINGS_FILE.Token
                 },
             });
             // console.log(response);
             console.log("Uploaded!");
         } catch (error) {
             console.log(error);
-            files.errorWrite("Could Not Upload!");
+            fsw.errorWrite("Could Not Upload!");
         }
     }
 }

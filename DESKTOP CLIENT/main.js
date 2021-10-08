@@ -5,7 +5,6 @@ const upload = require("./js/upload");
 const { fsw, SETTINGS_FILE_PATH } = require("./js/fsWrap");
 
 const SETTINGS_FILE = require(SETTINGS_FILE_PATH);
-
 // Check if settings.json exists
 function checkSettings() {
     if (fs.existsSync(SETTINGS_FILE_PATH)) {
@@ -20,7 +19,7 @@ checkSettings()
 // Check if settings and __dirname is same
 console.log("PLEASE CHECK IF THE FOLLOWING MATCH, IN CASE OF ANY ERROR");
 console.log("settings: ", SETTINGS_FILE.WatchFolder);
-console.log("dirname: ", path.join(__dirname, "test"));
+console.log("dirname: ", path.join(__dirname, "test"), "\n\n");
 
 // const WATCHED = path.join(__dirname, "test");
 const WATCHED = path.join(SETTINGS_FILE.WatchFolder)
@@ -52,7 +51,7 @@ function main() {
         .on("change", async (DocPath) => {
             if (await fsw.findFileExists(DocPath)) {
                 const form = await upload.createFormData(DocPath, DocPath.split(__dirname)[1]);
-                await upload.uploadfile(form);
+                await upload.uploadfile(form, token);
                 // console.log(form);
             } else {
                 console.log("error");
