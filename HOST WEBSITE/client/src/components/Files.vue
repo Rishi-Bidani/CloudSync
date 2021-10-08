@@ -21,6 +21,12 @@
                     v-if="file.fileExtension === '.txt'"
                     src="../assets/filelogos/file.svg"
                     alt="file">
+
+                <img
+                    class="fileIcon"
+                    v-else-if="file.fileExtension === '.pdf'"
+                    src="../assets/filelogos/pdf.svg"
+                    alt="file">
                 <img
                     class="fileIcon"
                     v-else-if="['.mp4', '.mov', '.mkv', '.webm'].includes(file.fileExtension)"

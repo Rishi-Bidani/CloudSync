@@ -5,6 +5,7 @@ const multer = require("multer");
 const DATA_FOLDER = path.join(__dirname, "../..", "DATA");
 const fsw = require("./fsWrap");
 const fsWrapper = require("./fsWrap");
+require('dotenv').config({path: path.join(__dirname, "..", ".env")})
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -15,11 +16,16 @@ const storage = multer.diskStorage({
     },
 });
 
-const upload = multer({ storage: storage }).any();
+const upload = multer({storage: storage}).any();
 
-const checkToken = (req, res, next) =>{
-    console.log(req.headers)
-    next()
+const checkToken = async (req, res, next) => {
+    const token = process.env.TOKEN;
+    const {authorisation} = req.headers;
+    if (token === authorisation) {
+        next()
+    }else{
+        res.status(403).end()
+    }
 }
 
 router.post("/data", checkToken, (req, res) => {

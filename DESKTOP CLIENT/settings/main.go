@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"crypto/rand"
 	"encoding/json"
 	"fmt"
 	"golang.org/x/crypto/bcrypt"
@@ -24,6 +25,18 @@ func userInput(text string) string {
 	return inp
 }
 
+var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-!@#$%&"
+
+func shortID(length int) string {
+	ll := len(chars)
+	b := make([]byte, length)
+	rand.Read(b) // generates len(b) random bytes
+	for i := 0; i < length; i++ {
+		b[i] = chars[int(b[i])%ll]
+	}
+	return string(b)
+}
+
 type Settings struct {
 	WatchFolder string
 	Ignore      []string
@@ -37,13 +50,14 @@ func main() {
 	}
 	cloudsyncPath := filepath.Join(dirname, "CloudSync", "settings.json")
 	watchfolder := userInput("Enter Path of the folder you wish to watch: ")
-	password, _ := HashPassword(userInput("Enter a password"))
+	password, _ := HashPassword(shortID(15))
 
 	settings := Settings{
 		WatchFolder: string(filepath.Join(watchfolder)),
 		Ignore:      []string{filepath.Join(watchfolder, "ignore", "*"), ""},
 		Token:       password,
 	}
+	fmt.Println("Your Token: \n", password)
 	file, _ := json.MarshalIndent(settings, "", "")
 	_ = ioutil.WriteFile(cloudsyncPath, file, 0644)
 
