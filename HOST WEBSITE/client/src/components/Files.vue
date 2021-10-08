@@ -20,19 +20,22 @@
                     class="fileIcon"
                     v-if="file.fileExtension === '.txt'"
                     src="../assets/filelogos/file.svg"
-                >
+                    alt="file">
                 <img
                     class="fileIcon"
                     v-else-if="['.mp4', '.mov', '.mkv', '.webm'].includes(file.fileExtension)"
                     src="../assets/filelogos/video.svg"
+                    alt="video"
                 />
                 <img
                     class="fileIcon"
                     v-else-if="['.png', '.jpeg', '.jpg', '.svg', '.gif'].includes(file.fileExtension)"
                     src="../assets/filelogos/image2.svg"
+                    alt="Image"
                 />
                 <img class="fileIcon"
                      v-else src="../assets/filelogos/file.svg"
+                     alt="Unknown file type"
                 />
                 <figcaption>{{ file.fileName }}</figcaption>
             </figure>
@@ -41,9 +44,6 @@
 </template>
 
 <script>
-import RequestFiles from "@/js/reqfiles";
-import {ref} from "vue"
-
 export default {
     name: "Files",
     props: {
@@ -56,8 +56,6 @@ export default {
 
     methods: {
         navigation: async function (clickedFolder) {
-            // this.navigationPath += `/${clickedFolder}`;
-            // console.log(this.navigationPath);
             this.$emit("folderClicked", clickedFolder);
 
         },

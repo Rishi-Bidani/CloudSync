@@ -55,20 +55,8 @@ export default {
 }
 
 #nav {
-    /*padding: 30px;*/
     width: 100%;
     height: 100vh;
     overflow-y: scroll;
 }
-
-
-
-/*#nav a {*/
-/*  font-weight: bold;*/
-/*  color: #2c3e50;*/
-/*}*/
-
-/*#nav a.router-link-exact-active {*/
-/*  color: #42b983;*/
-/*}*/
 </style>

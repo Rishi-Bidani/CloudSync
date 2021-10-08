@@ -31,7 +31,6 @@
 <script>
 // @ is an alias to /src
 import Files from "@/components/Files.vue";
-// import UserLogin from "@/components/UserLogin.vue";
 import RequestFiles from "@/js/reqfiles";
 
 export default {
@@ -74,8 +73,6 @@ export default {
             const reqFolders = filesAndFoldersRequest.data.folders;
             this.files = reqFiles;
             this.folders = reqFolders;
-            console.log(reqFiles);
-            console.log(reqFolders);
         },
         async navClicked(navid) {
             console.log(navid)
