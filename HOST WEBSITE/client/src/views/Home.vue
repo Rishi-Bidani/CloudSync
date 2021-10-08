@@ -4,6 +4,19 @@
             <div class="breadcrumb-nav"
                  ref="breadcrumbNav"
             >
+                <span class="breadcrumb-item"
+                      :key="`root-0`"
+                      @click="navClicked(0)"
+                >
+                    root>&nbsp;
+                </span>
+                <span class="breadcrumb-item"
+                      v-for="(item, index) in navigationPath.split(`/`).slice(1)"
+                      :key="`item-${index}`"
+                      @click="navClicked(index+1)"
+                >
+                    {{ item }}>&nbsp;
+                </span>
             </div>
         </div>
         <Files
@@ -24,9 +37,7 @@ import RequestFiles from "@/js/reqfiles";
 export default {
     name: "Home",
     components: {
-        Files,
-
-        // UserLogin,
+        Files
     },
     data() {
         return {
@@ -42,12 +53,6 @@ export default {
         const filesAndFoldersRequest = await RequestFiles.getFilesandFolders(this.navigationPath);
         const reqFiles = filesAndFoldersRequest.data.files;
         const reqFolders = filesAndFoldersRequest.data.folders;
-        // console.log(reqFiles);
-        // console.log(this.nav);
-        // for (const file in reqFiles) {
-        //     console.log(file);
-        // }
-        this.$refs.breadcrumbNav.append(this.breadcrumbNavItem("root"))
         try {
             this.files = reqFiles;
             this.folders = reqFolders;
@@ -60,32 +65,22 @@ export default {
     methods: {
         async receiveFolderClick(folderPath) {
             this.navigationPath += `/${folderPath}`;
+            await this.displayFolders()
+        },
+
+        async displayFolders() {
             const filesAndFoldersRequest = await RequestFiles.getFilesandFolders(this.navigationPath);
             const reqFiles = filesAndFoldersRequest.data.files;
             const reqFolders = filesAndFoldersRequest.data.folders;
             this.files = reqFiles;
             this.folders = reqFolders;
-            this.$refs.breadcrumbNav.append(this.breadcrumbNavItem(`/${folderPath}`));
             console.log(reqFiles);
             console.log(reqFolders);
         },
-        breadcrumbNavItem(path){
-            const span =  Object.assign(
-                document.createElement("span"),
-                {
-                    className: "breadcrumb-item",
-                    textContent: path
-                }
-            )
-            const currNavId = this.navId;
-            span.setAttribute("data-nav-id", currNavId)
-            span.onclick = ()=>this.breadcrumbClick(currNavId)
-            console.log(span)
-            this.navId++;
-            return span
-        },
-        breadcrumbClick(navid){
+        async navClicked(navid) {
             console.log(navid)
+            this.navigationPath = this.navigationPath.split("/").slice(0, navid+1).join("/")
+            await this.displayFolders()
         }
     },
 };
@@ -109,7 +104,7 @@ export default {
     min-height: 3rem;
     height: fit-content;
     background-color: white;
-    word-break:break-all;
+    word-break: break-all;
     text-align: left;
     border-radius: 0.5rem;
     display: flex;
@@ -126,10 +121,11 @@ export default {
 </style>
 <!--Unscoped-->
 <style>
-.breadcrumb-item{
+.breadcrumb-item {
     cursor: pointer;
 }
-.breadcrumb-item:hover{
+
+.breadcrumb-item:hover {
     color: blue;
 }
 </style>
