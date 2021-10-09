@@ -23,7 +23,7 @@ const checkToken = async (req, res, next) => {
     const {authorisation} = req.headers;
     if (token === authorisation) {
         next()
-    }else{
+    } else {
         res.status(403).end()
     }
 }
@@ -56,4 +56,14 @@ router.post("/dirs", async (req, res) => {
     res.json(filesAndFolders)
 })
 
+router.post("/downloadfile", checkToken, (req, res) => {
+    const {relPath} = req.body;
+    const fullPath = path.join(DATA_FOLDER, relPath);
+    res.sendFile(fullPath, err => {
+        if (err) {
+            console.log(err)
+        }
+    })
+
+})
 module.exports = router;

@@ -1,6 +1,11 @@
 <template>
     <section class="section-1">
-        <SideBar sbwidth="320px" sbheader="CloudSync" :menu="menu"/>
+        <SideBar
+            sbwidth="320px"
+            sbheader="CloudSync"
+            :menu="menu"
+            v-on:button-click="sideBarButtonClick"
+        />
     </section>
     <div class="container">
         <div class="center margin1">
@@ -55,10 +60,11 @@ export default {
             menu: [
                 {
                     type: "title",
-                    text: "File Options"
+                    text: "File Properties"
                 },
                 {
                     id: "filename",
+                    dataPath: "",
                     type: "item",
                     text: "File Name: "
                 },
@@ -67,7 +73,14 @@ export default {
                     type: "item",
                     text: "File Size: "
                 },
-                {}
+                {
+                    type: "title",
+                    text: "File Options"
+                },
+                {
+                    type: "button",
+                    text: "Download"
+                }
             ]
         };
     },
@@ -111,6 +124,13 @@ export default {
                 fileSize = fileSize + "MB"
             }
             this.menu[2].text = "File Size: " + fileSize
+        },
+        sideBarButtonClick(name){
+            if(name === "Download"){
+                console.log(this.navigationPath, this.menu[1].text)
+            }else{
+                
+            }
         }
     },
 };
