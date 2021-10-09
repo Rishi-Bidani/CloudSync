@@ -5,10 +5,11 @@ const path = require("path");
 const { fsw, SETTINGS_FILE_PATH } = require("./fsWrap");;
 
 const SETTINGS_FILE = require(SETTINGS_FILE_PATH);
-const stream = (filepath) => {
-    return new Promise((resolve, reject) => {
-        resolve(fs.createReadStream(filepath));
-    });
+const stream = async (filepath) => {
+    // return new Promise((resolve, reject) => {
+    //     resolve(fs.createReadStream(filepath));
+    // });
+    return await fs.createReadStream(filepath)
 };
 
 class Upload {
@@ -26,7 +27,7 @@ class Upload {
             const response = await axios({
                 method: "post",
                 url: url,
-                data: formData,
+                data: await formData,
                 maxContentLength: Infinity,
                 maxBodyLength: Infinity,
                 headers: {

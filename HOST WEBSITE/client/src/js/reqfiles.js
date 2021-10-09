@@ -10,14 +10,14 @@ export default class RequestFiles {
         return data;
     }
 
-    static async reqFileDownload(fileName, relPath, token) {
+    static async reqFileDownload(fileName, relPath) {
         const response =
             await axios.post(
                 `${url}/downloadfile`, {
                     relPath
                 }, {
                     headers: {
-                        Authorisation: token
+                        Authorisation: "token"
                     },
                     responseType: "arraybuffer"
                 })

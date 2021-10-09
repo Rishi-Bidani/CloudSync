@@ -56,8 +56,9 @@ router.post("/dirs", async (req, res) => {
     res.json(filesAndFolders)
 })
 
-router.post("/downloadfile", checkToken, (req, res) => {
+router.post("/downloadfile", (req, res) => {
     const {relPath} = req.body;
+    console.log(relPath)
     const fullPath = path.join(DATA_FOLDER, relPath);
     res.sendFile(fullPath, err => {
         if (err) {

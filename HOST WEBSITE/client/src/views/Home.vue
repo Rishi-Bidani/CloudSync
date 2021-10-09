@@ -57,6 +57,7 @@ export default {
             filesKey: 0,
             testNum: 0,
             navId: 0,
+            selectedFile: "",
             menu: [
                 {
                     type: "title",
@@ -117,6 +118,7 @@ export default {
         },
         singleClickFile(fileName, fileSize) {
             console.log(fileName, fileSize)
+            this.selectedFile = fileName;
             this.menu[1].text = "File Name: " + fileName
             if (fileSize < 1) {
                 fileSize = fileSize * 1024 + "KB"
@@ -125,11 +127,12 @@ export default {
             }
             this.menu[2].text = "File Size: " + fileSize
         },
-        sideBarButtonClick(name){
-            if(name === "Download"){
-                console.log(this.navigationPath, this.menu[1].text)
-            }else{
-                
+        async sideBarButtonClick(name) {
+            if (name === "Download") {
+                const relPath = this.navigationPath + "/" + this.selectedFile;
+                await RequestFiles.reqFileDownload(this.selectedFile, relPath)
+            } else {
+
             }
         }
     },

@@ -43,8 +43,12 @@ function main() {
                 console.log("File", DocPath, "has been added");
 
                 if (await fsw.findFileExists(DocPath)) {
-                    const form = await upload.createFormData(DocPath, DocPath.split(WATCHED)[1]);
-                    await upload.uploadfile(form);
+                    try {
+                        const form = await upload.createFormData(DocPath, DocPath.split(WATCHED)[1]);
+                        await upload.uploadfile(form);
+                    } catch (error) {
+                        console.log(error)
+                    }
                 }
             }
         })
