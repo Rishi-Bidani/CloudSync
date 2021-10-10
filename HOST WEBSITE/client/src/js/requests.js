@@ -10,6 +10,8 @@ export default class Post {
     }
 
     static async checkLogin(){
-        return await axios.post(`${url}/check-login`)
+        return await axios.post(`${url}/check-login`,
+            {withCredentials: true}
+        )
     }
 }

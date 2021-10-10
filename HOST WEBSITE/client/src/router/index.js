@@ -17,9 +17,11 @@ const routes = [
         name: "Home",
         component: Home,
         beforeEnter: async (to, from, next) => {
-            const auth = await Post.checkLogin();
-            if (auth.data) await router.push("/")
-            else next()
+            if(from.name === "Login"){
+                next()
+            }else{
+                await router.push("/")
+            }
         }
     },
 ];

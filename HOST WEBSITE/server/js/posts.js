@@ -30,7 +30,8 @@ const checkToken = async (req, res, next) => {
     }
 }
 
-const redirectLogin = async(req, res, next)=>{
+const redirectLogin = (req, res, next)=>{
+    console.log(req.session.userId)
     if(!req.session.userId){
         res.status(403).end()
     }else{
@@ -41,18 +42,14 @@ const redirectLogin = async(req, res, next)=>{
 router.post("/login", async(req, res) => {
     const {username, password} = req.body.data;
     const match = await bcrypt.compare(password, PASSWORD)
+    console.log(match)
     if(match){
         req.session.userId = username
-        res.send(true)
+        console.log("Session id from Login.vue: ", req.session.userId)
+        res.status(200).send(true)
     }else{
         res.status(403).send(false)
     }
-})
-
-router.post("/check-login", async(req, res)=>{
-    console.log(req.session.userId)
-    if(req.session.userId) res.send(true)
-    else res.send(false)
 })
 
 router.post("/data", checkToken, (req, res) => {

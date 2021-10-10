@@ -23,8 +23,10 @@ export default {
         const router = useRouter()
         const submit = async () => {
             const auth = await Post.login(data);
-            if(auth){
+            if(auth.data){
                 await router.push("/home")
+            }else{
+                await router.push("/")
             }
         }
         return {
