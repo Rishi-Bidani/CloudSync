@@ -2,10 +2,12 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 const multer = require("multer");
+const bcrypt = require("bcrypt");
 const DATA_FOLDER = path.join(__dirname, "../..", "DATA");
 const fsw = require("./fsWrap");
 const fsWrapper = require("./fsWrap");
-require('dotenv').config({path: path.join(__dirname, "..", ".env")})
+require('dotenv').config({path: path.join(__dirname, "..", ".env")});
+const {PASSWORD} = process.env
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -27,6 +29,31 @@ const checkToken = async (req, res, next) => {
         res.status(403).end()
     }
 }
+
+const redirectLogin = async(req, res, next)=>{
+    if(!req.session.userId){
+        res.status(403).end()
+    }else{
+        next()
+    }
+}
+
+router.post("/login", async(req, res) => {
+    const {username, password} = req.body.data;
+    const match = await bcrypt.compare(password, PASSWORD)
+    if(match){
+        req.session.userId = username
+        res.send(true)
+    }else{
+        res.status(403).send(false)
+    }
+})
+
+router.post("/check-login", async(req, res)=>{
+    console.log(req.session.userId)
+    if(req.session.userId) res.send(true)
+    else res.send(false)
+})
 
 router.post("/data", checkToken, (req, res) => {
     // The following is the middleware for formdata content
@@ -56,7 +83,7 @@ router.post("/dirs", async (req, res) => {
     res.json(filesAndFolders)
 })
 
-router.post("/downloadfile", (req, res) => {
+router.post("/downloadfile", redirectLogin, (req, res) => {
     const {relPath} = req.body;
     console.log(relPath)
     const fullPath = path.join(DATA_FOLDER, relPath);
