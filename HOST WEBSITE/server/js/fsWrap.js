@@ -6,7 +6,9 @@ const DATA_FOLDER = path.join(__dirname, "../..", "DATA");
 class fsWrapper {
     static async move(file, destination) {
         try {
-            await fs.move(file, destination, { overwrite: true });
+            if (file !== destination) {
+                await fs.move(file, destination, {overwrite: true});
+            }
         } catch (error) {
             console.error(error);
         }
