@@ -1,7 +1,13 @@
 <template>
     <form @submit.prevent="submit">
         <h1>LOGIN</h1>
-        <input v-model="data.username" type="text" placeholder="Username" required>
+        <br>
+        <label for="sessionid">Session ID</label>
+        <input v-model="data.sessionID"
+               type="text"
+               placeholder="Session ID"
+               id="sessionid"
+               required>
         <input v-model="data.password" type="password" placeholder="Password" required>
         <button>Submit</button>
     </form>
@@ -12,21 +18,25 @@
 import {reactive} from "vue";
 import {useRouter} from "vue-router"
 import Post from "@/js/requests";
+import {globalvars} from "@/js/globalvariables";
+import KeyGen from "@/js/keygen";
 
 export default {
     name: "Login",
     setup() {
         const data = reactive({
-            username: "",
+            sessionID: new KeyGen(20).returnKey(),
             password: ""
         });
+        let check = ""
         const router = useRouter()
         const submit = async () => {
             const auth = await Post.login(data);
-            if(auth.data){
+            if (auth.data) {
+                globalvars.sessionId = data.sessionID
                 await router.push("/home")
             }else{
-                await router.push("/")
+                alert("Incorrect password")
             }
         }
         return {
@@ -62,5 +72,9 @@ button {
     font-weight: bold;
     background-color: navy;
     color: white;
+}
+
+label {
+    text-align: left;
 }
 </style>

@@ -42,6 +42,9 @@
 import Files from "@/components/Files.vue";
 import RequestFiles from "@/js/reqfiles";
 import SideBar from "@/components/SideBar"
+import {globalvars} from "@/js/globalvariables";
+import Post from "@/js/requests";
+import {useRouter} from "vue-router";
 
 export default {
     name: "Home",
@@ -85,14 +88,26 @@ export default {
             ]
         };
     },
+    beforeCreate() {
+        const router = useRouter();
+        const checkLogin = async () => {
+            return await Post.checkLogin()
+        }
+        checkLogin().then(resp => {
+            if (!resp.data) {
+                router.push("/")
+            }
+        })
+    },
     async created() {
-        const filesAndFoldersRequest = await RequestFiles.getFilesandFolders(this.navigationPath);
+        const sessId = globalvars.sessionId;
+        const filesAndFoldersRequest = await RequestFiles.getFilesandFolders(this.navigationPath, sessId);
         const reqFiles = filesAndFoldersRequest.data.files;
         const reqFolders = filesAndFoldersRequest.data.folders;
         try {
             this.files = reqFiles;
             this.folders = reqFolders;
-            console.log(this.files, this.folders);
+            // console.log(this.files, this.folders);
         } catch (error) {
             console.log(error);
         }
@@ -105,19 +120,20 @@ export default {
         },
 
         async displayFolders() {
-            const filesAndFoldersRequest = await RequestFiles.getFilesandFolders(this.navigationPath);
+            const sessId = globalvars.sessionId;
+            const filesAndFoldersRequest = await RequestFiles.getFilesandFolders(this.navigationPath, sessId);
             const reqFiles = filesAndFoldersRequest.data.files;
             const reqFolders = filesAndFoldersRequest.data.folders;
             this.files = reqFiles;
             this.folders = reqFolders;
         },
         async navClicked(navid) {
-            console.log(navid)
+            // console.log(navid)
             this.navigationPath = this.navigationPath.split("/").slice(0, navid + 1).join("/")
             await this.displayFolders()
         },
         singleClickFile(fileName, fileSize) {
-            console.log(fileName, fileSize)
+            // console.log(fileName, fileSize)
             this.selectedFile = fileName;
             this.menu[1].text = "File Name: " + fileName
             if (fileSize < 1) {
@@ -129,8 +145,9 @@ export default {
         },
         async sideBarButtonClick(name) {
             if (name === "Download") {
+                const sessId = globalvars.sessionId
                 const relPath = this.navigationPath + "/" + this.selectedFile;
-                await RequestFiles.reqFileDownload(this.selectedFile, relPath)
+                await RequestFiles.reqFileDownload(this.selectedFile, relPath, sessId)
             } else {
 
             }
