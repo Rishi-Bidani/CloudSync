@@ -3,18 +3,20 @@ import axios from "axios";
 const url = "http://localhost:5000/posts";
 
 export default class RequestFiles {
-    static async getFilesandFolders(forPath) {
+    static async getFilesandFolders(forPath, sessionId) {
         const data = await axios.post(`${url}/dirs`, {
             dir: forPath,
+            sessionId: sessionId
         });
         return data;
     }
 
-    static async reqFileDownload(fileName, relPath) {
+    static async reqFileDownload(fileName, relPath, sessionId) {
         const response =
             await axios.post(
                 `${url}/downloadfile`, {
-                    relPath
+                    relPath,
+                    sessionId
                 }, {
                     headers: {
                         Authorisation: "token"

@@ -17,10 +17,10 @@ const routes = [
         name: "Home",
         component: Home,
         beforeEnter: async (to, from, next) => {
-            if(from.name === "Login"){
+            if (from.name === "Login") {
                 next()
-            }else{
-                await router.push("/")
+            }else {
+                next({path: "/"})
             }
         }
     },
