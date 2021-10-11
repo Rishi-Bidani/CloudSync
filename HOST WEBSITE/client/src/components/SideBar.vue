@@ -45,7 +45,7 @@ export default {
         menu: Array,
     },
     created() {
-        console.log(this.menu)
+        // console.log(this.menu)
     },
     computed: {
         sidebarStyles() {
@@ -65,13 +65,11 @@ export default {
     methods: {
         closeClicked() {
             if (this.clickCounter % 2 === 0) {
-                console.log("open");
                 this.width = this.sbwidth;
                 this.openclose = "X";
                 this.$refs.sidebarContent.style.display = "block"
                 this.header = this.sbheader;
             } else {
-                console.log("close");
                 this.header = "CS";
                 this.openclose = ">";
                 this.$refs.sidebarContent.style.display = "none";
