@@ -50,14 +50,17 @@ func main() {
 	}
 	cloudsyncPath := filepath.Join(dirname, "CloudSync", "settings.json")
 	watchfolder := userInput("Enter Path of the folder you wish to watch: ")
-	password, _ := HashPassword(shortID(15))
+	Token, _ := HashPassword(shortID(15))
+	password, _ := HashPassword(userInput("Create Password: "))
 
 	settings := Settings{
 		WatchFolder: string(filepath.Join(watchfolder)),
 		Ignore:      []string{filepath.Join(watchfolder, "ignore", "*"), ""},
-		Token:       password,
+		Token:       Token,
 	}
-	fmt.Println("Your Token: \n", password)
+	fmt.Println("Your Token: \n", Token)
+	fmt.Println("Please Save Your Hashed Password (given below) in the .env file")
+	fmt.Println(password)
 	file, _ := json.MarshalIndent(settings, "", "")
 	_ = ioutil.WriteFile(cloudsyncPath, file, 0644)
 
