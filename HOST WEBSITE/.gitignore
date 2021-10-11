@@ -2,3 +2,4 @@ node_modules/
 DATA/
 .idea/
 .env
+*.log

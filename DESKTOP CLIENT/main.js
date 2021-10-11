@@ -23,7 +23,8 @@ console.log("dirname: ", path.join(__dirname, "test"), "\n\n");
 
 // const WATCHED = path.join(__dirname, "test");
 const WATCHED = path.join(SETTINGS_FILE.WatchFolder)
-const UNWATCHED = ["./node_modules/*", "./ignored/*"];
+// const UNWATCHED = ["./node_modules/*", "./ignored/*"];
+const UNWATCHED = [...SETTINGS_FILE.Ignore]
 
 // Initialize watcher.
 const watcher = chokidar.watch(path.resolve(WATCHED), {
